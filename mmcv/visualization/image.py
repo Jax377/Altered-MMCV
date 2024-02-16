@@ -21,7 +21,9 @@ def imshow(img: Union[str, np.ndarray],
         win_name (str): The window name.
         wait_time (int): Value of waitKey param.
     """
-    cv2.imshow(win_name, imread(img))
+    jacobs_resize = imread(img)
+    jacobs_resize = cv2.resize(jacobs_resize, (1920,1080))
+    cv2.imshow(win_name, jacobs_resize)
     if wait_time == 0:  # prevent from hanging if windows was closed
         while True:
             ret = cv2.waitKey(1)

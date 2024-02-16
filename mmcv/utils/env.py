@@ -87,8 +87,7 @@ def collect_env():
         if cc:
             cc = osp.basename(cc.split()[0])
             cc_info = subprocess.check_output(f'{cc} --version', shell=True)
-            env_info['GCC'] = cc_info.decode('utf-8').partition(
-                '\n')[0].strip()
+            env_info['GCC'] = cc_info.decode('utf-8').partition('\n')[0].strip()
         else:
             # on Windows, cl.exe is not in PATH. We need to find the path.
             # distutils.ccompiler.new_compiler() returns a msvccompiler
@@ -100,9 +99,8 @@ def collect_env():
             ccompiler.initialize()
             cc = subprocess.check_output(
                 f'{ccompiler.cc}', stderr=subprocess.STDOUT, shell=True)
-            encoding = os.device_encoding(
-                sys.stdout.fileno()) or locale.getpreferredencoding()
-            env_info['MSVC'] = cc.decode(encoding).partition('\n')[0].strip()
+            encoding = 'utf-8'# os.device_encoding(sys.stdout.fileno()) or locale.getpreferredencoding()
+            env_info['MSVC'] = 'n/a' # cc.decode('utf-8').partition('\n')[0].strip()
             env_info['GCC'] = 'n/a'
     except subprocess.CalledProcessError:
         env_info['GCC'] = 'n/a'
